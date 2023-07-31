@@ -21,6 +21,7 @@ import mockingproductsRouter from "./routes/mockingproducts.router.js";
 import __dirname, { passportAuthenticate } from "./utils.js";
 import initializePassport from "./config/passport.config.js";
 import { messageModel } from "./models/messageModel.js";
+import errorHandler from "./controllers/errors/middleware.error.js";
 
 mongoose.set("strictQuery", false);
 
@@ -59,6 +60,7 @@ app.use(
     realTimeProductsRouter
 );
 app.use(express.static(__dirname + "/public"));
+app.use(errorHandler);
 
 try {
     await mongoose.connect(config.MONGO_URL, {
